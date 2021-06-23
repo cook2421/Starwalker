@@ -1,20 +1,8 @@
-buildscript {
-    ext {
-        springBootVersion = '2.5.1'
-    }
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'org.springframework.boot' version '2.5.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group 'com.withflow'
 version '1.0-SNAPSHOT'
@@ -22,14 +10,24 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
+}
+
+test {
+    useJUnitPlatform()
 }
 
 dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    //lombok
+    implementation('org.projectlombok:lombok')
     annotationProcessor('org.projectlombok:lombok')
-    compileOnly('org.projectlombok:lombok')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('com.h2database:h2')
-    implementation ('junit:junit:4.13.1')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('com.h2database:h2')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
