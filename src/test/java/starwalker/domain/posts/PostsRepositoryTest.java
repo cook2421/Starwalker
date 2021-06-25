@@ -13,7 +13,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(properties = "spring.config.location=" +
+        "classpath:/application.yml" +
+        ",classpath:/application-oauth.yml")
 public class PostsRepositoryTest {
 
     @Autowired
